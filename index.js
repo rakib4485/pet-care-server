@@ -29,6 +29,8 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     const productsCollection = client.db('petCare').collection('products');
+    const usersCollection = client.db('petCare').collection('users');
+    const appointmentOptionCollection = client.db('petCare').collection('appointmentOption');
 
 
     app.get('/products', async(req, res) => {
@@ -45,6 +47,37 @@ async function run() {
       const product = await productsCollection.findOne(query);
       res.send(product);
     });
+
+    app.get('/appointmentOption', async(req, res) => {
+      await client.connect();
+      const query = {};
+      const result = await appointmentOptionCollection.find(query).toArray();
+      res.send(result);
+    })
+
+    app.get('/appointmentOption/:id', async(req, res) => {
+      await client.connect();
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await appointmentOptionCollection.findOne(query);
+      res.send(result);
+    })
+
+
+    //user related code
+    app.get('/users', async(req, res) => {
+      await client.connect();
+      const query = {};
+      const result = await usersCollection.find(query).toArray();
+      res.send(result);
+    })
+
+    app.post('/users', async (req, res) => {
+      await client.connect();
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    })
 
   } finally {
     // Ensures that the client will close when you finish/error
