@@ -213,7 +213,16 @@ async function run() {
       const query = { email };
       const result = await bookingsCollection.find(query).toArray();
       res.send(result);
-    })
+    });
+
+    app.get('/allBookings', async (req, res) => {
+      await client.connect();
+      const query = {};
+      const result = await bookingsCollection.find(query).toArray();
+      res.send(result);
+    });
+
+
 
 
     //product related code
@@ -331,6 +340,13 @@ async function run() {
       res.send(order)
     })
 
+    app.get('/totalOrders', async (req, res) => {
+      await client.connect()
+      const query = {};
+      const order = await productOrderCollection.find(query).toArray()
+      res.send(order)
+    })
+
     //user related code
     app.get('/users', async (req, res) => {
       await client.connect();
@@ -344,7 +360,7 @@ async function run() {
       const user = req.body;
       const query = { email: user.email };
       const already = await usersCollection.findOne(query);
-      if (already.length) {
+      if (already) {
         return res.send({ acknowledged: false });
       }
       const result = await usersCollection.insertOne(user);
