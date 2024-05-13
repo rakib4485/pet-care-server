@@ -40,13 +40,21 @@ async function run() {
     const bookingsCollection = client.db('petCare').collection('bookings')
     const productOrderCollection = client.db('petCare').collection('productOrders');
     const sellersCollection = client.db('petCare').collection('sellers');
+    const categoryCollection = client.db('petCare').collection('productCategories')
 
 
     app.get('/products', async (req, res) => {
       await client.connect()
-      const query = {};
-      const products = await productsCollection.find(query).toArray();
-      res.send(products);
+      const categoryId = req.query.category;
+      if (categoryId === '0') {
+        const query = {};
+        const products = await productsCollection.find(query).toArray();
+        return res.send(products);
+      }else{
+        const query = { categoryId: categoryId}
+        const products = await productsCollection.find(query).toArray();
+        return res.send(products);
+      }
     })
 
     app.get('/products/:id', async (req, res) => {
@@ -57,6 +65,28 @@ async function run() {
       res.send(product);
     });
 
+    app.get('/categories', async (req, res) => {
+      await client.connect()
+      const query = {}
+      const categories = await categoryCollection.find(query).toArray();
+      res.send(categories);
+    });
+
+    app.post('/product', async (req, res) => {
+      await client.connect()
+      const product = req.body;
+      const result = await productsCollection.insertOne(product);
+      res.send(result)
+    })
+
+    app.get('/my-product', async (req, res) => {
+      await client.connect()
+      const email = req.query.email;
+      const query = {sellerEmail : email};
+      const result = await productsCollection.find(query).toArray();
+      res.send(result)
+    })
+
     //appointment Related code
 
     app.get('/appointmentOption', async (req, res) => {
@@ -65,6 +95,8 @@ async function run() {
       const result = await appointmentOptionCollection.find(query).toArray();
       res.send(result);
     })
+
+    
 
     app.post('/appointmentOptions', async (req, res) => {
       await client.connect()
@@ -226,6 +258,35 @@ async function run() {
 
 
     //product related code
+
+    // server.js
+
+    // Route to fetch month-wise order quantities with formatted dates
+    app.get('/api/monthly-orders', async (req, res) => {
+      try {
+        await client.connect()
+        const monthlyOrders = await productOrderCollection.aggregate([
+          {
+            $group: {
+              _id: {
+                $dateToString: { format: "%B %Y", date: { $toDate: "$orderDate" } }
+              },
+              totalQuantity: { $sum: '$products[0].quantity' }
+            }
+          },
+          {
+            $sort: {
+              '_id': 1
+            }
+          }
+        ]).toArray();
+        res.json(monthlyOrders);
+      } catch (error) {
+        console.error('Error fetching monthly orders:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    });
+
     app.post('/carts', async (req, res) => {
       await client.connect()
       const cart = req.body;
