@@ -1,0 +1,22 @@
+[
+    {
+        "categoryId": "01",
+        "name": "Cat Food"
+    },
+    {
+        "categoryId": "02",
+        "name": "Dog Food"
+    },
+    {
+        "categoryId": "03",
+        "name": "Bird Food"
+    },
+    {
+        "categoryId": "04",
+        "name": "Medicine"
+    },
+    {
+        "categoryId": "05",
+        "name": "Pet Furniture"
+    }
+]
