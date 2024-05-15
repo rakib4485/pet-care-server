@@ -50,8 +50,8 @@ async function run() {
         const query = {};
         const products = await productsCollection.find(query).toArray();
         return res.send(products);
-      }else{
-        const query = { categoryId: categoryId}
+      } else {
+        const query = { categoryId: categoryId }
         const products = await productsCollection.find(query).toArray();
         return res.send(products);
       }
@@ -82,9 +82,35 @@ async function run() {
     app.get('/my-product', async (req, res) => {
       await client.connect()
       const email = req.query.email;
-      const query = {sellerEmail : email};
+      const query = { sellerEmail: email };
       const result = await productsCollection.find(query).toArray();
       res.send(result)
+    })
+
+    app.get('/my-product-order', async (req, res) => {
+      await client.connect()
+      const email = req.query.email;
+      const orders = await productOrderCollection.find({}).toArray();
+      let myOrder = [];
+      orders.forEach(order => {
+        order.products.map(product => {
+          if (JSON.stringify(product.sellerEmail) === JSON.stringify(email)) {
+            const order1 = {
+              product,
+              name: order.name,
+              price: order.price,
+              city: order.city,
+              street: order.street,
+              paymentType: order.paymentType,
+              customerEmail: order.customerEmail,
+              phone: order.phone,
+              orderDate: order.orderDate
+            }
+            myOrder = [...myOrder, order1]
+          }
+        })
+      })
+      res.send(myOrder)
     })
 
     //appointment Related code
@@ -96,7 +122,7 @@ async function run() {
       res.send(result);
     })
 
-    
+
 
     app.post('/appointmentOptions', async (req, res) => {
       await client.connect()
@@ -253,6 +279,14 @@ async function run() {
       const result = await bookingsCollection.find(query).toArray();
       res.send(result);
     });
+
+    app.get('/my-appointments', async (req, res) =>{
+      await client.connect()
+      const email = req.query.email;
+      const query = {doctorEmail: email}
+      const result = await bookingsCollection.find(query).toArray()
+      res.send(result);
+    })
 
 
 
@@ -519,6 +553,27 @@ async function run() {
         );
         return res.send({ acknowledged: true });
       }
+    });
+
+    app.get("/users/admin/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      res.send({ isAdmin: user?.role === "admin" });
+    });
+
+    app.get("/users/seller/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      res.send({ isSeller: user?.role === "seller" });
+    });
+
+    app.get("/users/doctor/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      res.send({ isDoctor: user?.role === "doctor" });
     });
 
   } finally {
