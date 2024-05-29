@@ -140,7 +140,8 @@ async function run() {
             { email: appointmentOption.email },
             {
               $set: {
-                role: 'doctor'
+                role: 'doctor',
+                doctorDetails: {}
               },
             }
           );
@@ -450,6 +451,14 @@ async function run() {
       res.send(result);
     })
 
+    app.get('/user/:email', async (req, res) => {
+      await client.connect()
+      const email = req.params.email;
+      const query = {email};
+      const result = await usersCollection.findOne(query);
+      res.send(result);
+    })
+
     app.post('/users', async (req, res) => {
       await client.connect();
       const user = req.body;
@@ -471,6 +480,22 @@ async function run() {
         $set: {
           role: 'sellerRequest',
           sellerInfo: seller
+        }
+      }
+      const result = await usersCollection.updateOne(filter, updatedDoc, options);
+      res.send(result);
+    });
+
+    app.put('/edit-doctorDetails', async (req, res) => {
+      await client.connect()
+      const email = req.query.email
+      const doctorDetails = req.body;
+      console.log(doctorDetails)
+      const filter = { email: email };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          doctorDetails
         }
       }
       const result = await usersCollection.updateOne(filter, updatedDoc, options);
@@ -574,6 +599,20 @@ async function run() {
       const query = { email: email };
       const user = await usersCollection.findOne(query);
       res.send({ isDoctor: user?.role === "doctor" });
+    });
+
+
+    app.get('/addIsRent', async (req, res) => {
+      await client.connect()
+      const filter = { role: 'doctor'};
+      const option = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          doctorDetails: {}
+        }
+      }
+      const result = await usersCollection.updateMany(filter, updatedDoc, option);
+      res.send(result);
     });
 
   } finally {
