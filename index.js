@@ -458,7 +458,7 @@ async function run() {
       const result = await usersCollection.findOne(query);
       res.send(result);
     })
-    
+
 
     app.post('/users', async (req, res) => {
       await client.connect();
@@ -602,7 +602,7 @@ async function run() {
       res.send({ isDoctor: user?.role === "doctor" });
     });
 
-
+// add temporary change in database
     app.get('/addIsRent', async (req, res) => {
       await client.connect()
       const filter = { role: 'doctor'};
