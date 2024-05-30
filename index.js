@@ -458,6 +458,7 @@ async function run() {
       const result = await usersCollection.findOne(query);
       res.send(result);
     })
+    
 
     app.post('/users', async (req, res) => {
       await client.connect();
