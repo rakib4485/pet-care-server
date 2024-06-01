@@ -200,7 +200,7 @@ async function run() {
         total_amount: booking.prices,
         currency: 'BDT',
         tran_id: tranId, // use unique tran_id for each api call
-        success_url: `http://localhost:5000/payment/success/${tranId}`,
+        success_url: `https://pet-care-server-lake.vercel.app/payment/success/${tranId}`,
         fail_url: 'http://localhost:3030/fail',
         cancel_url: 'http://localhost:3030/cancel',
         ipn_url: 'http://localhost:3030/ipn',
@@ -345,7 +345,7 @@ async function run() {
           total_amount: order.price,
           currency: 'BDT',
           tran_id: tranId, // use unique tran_id for each api call
-          success_url: `http://localhost:5000/payment/success/${tranId}`,
+          success_url: `https://pet-care-server-lake.vercel.app/payment/success/${tranId}`,
           fail_url: 'http://localhost:3030/fail',
           cancel_url: 'http://localhost:3030/cancel',
           ipn_url: 'http://localhost:3030/ipn',
