@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.efsdsdy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://petCare:XUy0G3u21omJKG5h@cluster0.efsdsdy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -21,8 +21,8 @@ const client = new MongoClient(uri, {
   }
 });
 
-const store_id = process.env.BKASH_SID
-const store_passwd = process.env.BKASH_SPASS
+const store_id = 'hbr6634d269e107a'
+const store_passwd = 'hbr6634d269e107a@ssl'
 const is_live = false //true for live, false for sandbox
 
 async function run() {
@@ -729,7 +729,8 @@ async function run() {
       res.send(result);
     });
 
-  } finally {
+  } 
+  finally {
     // Ensures that the client will close when you finish/error
     await client.close();
   }
