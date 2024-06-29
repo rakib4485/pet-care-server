@@ -79,6 +79,14 @@ async function run() {
       res.send(result)
     })
 
+    app.delete('/product/:id', async (req, res) => {
+      await client.connect();
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await productsCollection.deleteOne(query);
+      res.send(result)
+    })
+
     app.get('/my-product', async (req, res) => {
       await client.connect()
       const email = req.query.email;
@@ -104,7 +112,8 @@ async function run() {
               paymentType: order.paymentType,
               customerEmail: order.customerEmail,
               phone: order.phone,
-              orderDate: order.orderDate
+              orderDate: order.orderDate,
+              orderId: order._id
             }
             myOrder = [...myOrder, order1]
           }
@@ -160,10 +169,11 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/appointmentSlots/:email', async (req, res) => {
+    app.get('/appointmentSlots/:email/:type', async (req, res) => {
       await client.connect()
       const date = req.query.date;
       const email = req.params.email;
+      const type = req.params.type;
       const query = { email };
       const option = await appointmentOptionCollection.findOne(query);
       //get the booking of provided date
@@ -174,9 +184,20 @@ async function run() {
 
       const optionBooked = alreadyBooked.filter(book => book.doctorEmail === option.email);
       const bookedSlots = optionBooked.map(book => book.slot);
-      const remainingSlots = option.slots.filter(slot => !bookedSlots.includes(slot));
-      option.slots = remainingSlots;
-      res.send(option);
+      if (type === 'online') {
+        const remainingSlots = option.onlineSlots.filter(slot => !bookedSlots.includes(slot));
+        option.slots = remainingSlots;
+        return res.send(option);
+      }
+      else if (type === 'offline') {
+        const remainingSlots = option.offlineSlots.filter(slot => !bookedSlots.includes(slot));
+        option.slots = remainingSlots;
+        return res.send(option);
+      }
+      else{
+        option.slots = [];
+        return res.send(option);
+      }
     });
 
     const tranId = new ObjectId().toString();
@@ -242,7 +263,8 @@ async function run() {
           doctorEmail: booking.doctorEmail,
           phone: booking.phone,
           prices: booking.prices,
-          meet: booking.meet
+          meet: booking.meet,
+          appointmentType: booking.appointmentType
         }
         const result = bookingsCollection.insertOne(finalBooking)
         console.log('Redirecting to: ', GatewayPageURL)
@@ -260,7 +282,7 @@ async function run() {
         );
         console.log(result)
         if (result.modifiedCount > 0) {
-          res.redirect(`http://localhost:3000/appointmentPayment/success/:${req.params.tranId}`)
+          res.redirect(`https://pet-care-client.vercel.app/appointmentPayment/success/:${req.params.tranId}`)
         }
         return res.send()
       })
@@ -281,10 +303,10 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/my-appointments', async (req, res) =>{
+    app.get('/my-appointments', async (req, res) => {
       await client.connect()
       const email = req.query.email;
-      const query = {doctorEmail: email}
+      const query = { doctorEmail: email }
       const result = await bookingsCollection.find(query).toArray()
       res.send(result);
     })
@@ -407,7 +429,7 @@ async function run() {
             const del = await cartsCollection.deleteMany({ customerEmail: order.customerEmail });
             console.log(del)
             if (del.deletedCount > 0) {
-              res.redirect(`http://localhost:3000/orderPayment/success/:${req.params.tranId}`)
+              res.redirect(`https://pet-care-client.vercel.app/orderPayment/success/:${req.params.tranId}`)
             }
 
           }
@@ -436,6 +458,68 @@ async function run() {
       res.send(order)
     })
 
+    app.delete('/orders/:id', async (req, res) => {
+      await client.connect();
+      const id = req.params.id;
+      const productId = req.query.productId;
+      console.log(productId)
+      const query = { _id: new ObjectId(id) }
+      const result1 = await productOrderCollection.findOne(query);
+      // console.log(result)
+      const products = await result1.products;
+      // console.log(products)
+
+      let finalProducts = []
+      products.forEach(product => {
+        if (JSON.stringify(product._id) !== JSON.stringify(productId)) {
+          finalProducts = [...finalProducts, product]
+        }
+      })
+      console.log(finalProducts)
+      const result = await productOrderCollection.updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            products: finalProducts
+          }
+        }
+      );
+      console.log(result)
+      res.send(result)
+    })
+
+    app.put('/confirm-order/:id', async (req, res) => {
+      await client.connect();
+      const id = req.params.id;
+      const productId = req.query.productId;
+      console.log(productId)
+      const query = { _id: new ObjectId(id) }
+      const result1 = await productOrderCollection.findOne(query);
+      const products = await result1.products;
+
+      let finalProducts = []
+      products.forEach(product => {
+        if (JSON.stringify(product._id) === JSON.stringify(productId)) {
+          let confrim = {
+            status: 'confirmed'
+          }
+          Object.assign(product, confrim)
+          console.log(product)
+        }
+      })
+      console.log(products)
+      const result = await productOrderCollection.updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            products: products
+          }
+        }
+      );
+      console.log(result)
+      res.send(result)
+    })
+
     app.get('/totalOrders', async (req, res) => {
       await client.connect()
       const query = {};
@@ -454,7 +538,7 @@ async function run() {
     app.get('/user/:email', async (req, res) => {
       await client.connect()
       const email = req.params.email;
-      const query = {email};
+      const query = { email };
       const result = await usersCollection.findOne(query);
       res.send(result);
     })
@@ -602,10 +686,18 @@ async function run() {
       res.send({ isDoctor: user?.role === "doctor" });
     });
 
-// add temporary change in database
+    app.delete('/doctors/:id', async (req, res) => {
+      await client.connect();
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await appointmentOptionCollection.deleteOne(query);
+      res.send(result)
+    })
+
+    // add temporary change in database
     app.get('/addIsRent', async (req, res) => {
       await client.connect()
-      const filter = { role: 'doctor'};
+      const filter = { role: 'doctor' };
       const option = { upsert: true };
       const updatedDoc = {
         $set: {
