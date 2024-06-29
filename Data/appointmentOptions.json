@@ -1,10 +1,11 @@
 [
     {
-        "name": "Rahmat Mia",
-        "image": "https://i.ibb.co/RStrbxf/doctor-1.jpg",
+        "_id": "662fe098acbb5a3558a040d4",
+        "name": "Jorina Khatun",
+        "image": "https://i.ibb.co/kmWTBS3/doctors-2.jpg",
         "prices": "500",
         "meet": "https://meet.google.com/ewy-yjvp-zfu",
-        "slots": [
+        "offlineSlots": [
             "08.00 AM - 08.30 AM",
             "08.30 AM - 09.00 AM",
             "09.00 AM - 9.30 AM",
@@ -12,7 +13,97 @@
             "10.00 AM - 10.30 AM",
             "10.30 AM - 11.00 AM",
             "11.00 AM - 11.30 AM",
-            "11.30 AM - 12.00 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
+            "1.00 PM - 1.30 PM",
+            "1.30 PM - 2.00 PM",
+            "2.00 PM - 2.30 PM",
+            "2.30 PM - 3.00 PM",
+            "3.00 PM - 3.30 PM",
+            "3.30 PM - 4.00 PM",
+            "4.00 PM - 4.30 PM",
+            "4.30 PM - 5.00 PM"
+        ],
+        "email": "jorina@gmail.com"
+    },
+    {
+        "_id": "662fe098acbb5a3558a040d8",
+        "name": "Bayazid Hossain",
+        "image": "https://i.ibb.co/jLK0mBJ/doctors-3.jpg",
+        "prices": "500",
+        "meet": "https://meet.google.com/ewy-yjvp-zfu",
+        "offlineSlots": [
+            "08.00 AM - 08.30 AM",
+            "08.30 AM - 09.00 AM",
+            "09.00 AM - 9.30 AM",
+            "09.30 AM - 10.00 AM",
+            "10.00 AM - 10.30 AM",
+            "10.30 AM - 11.00 AM",
+            "11.00 AM - 11.30 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
+            "1.00 PM - 1.30 PM",
+            "1.30 PM - 2.00 PM",
+            "2.00 PM - 2.30 PM",
+            "2.30 PM - 3.00 PM",
+            "3.00 PM - 3.30 PM",
+            "3.30 PM - 4.00 PM",
+            "4.00 PM - 4.30 PM",
+            "4.30 PM - 5.00 PM"
+        ],
+        "email": "bayazidDcotor@gmail.com"
+    },
+    {
+        "_id": "662fe098acbb5a3558a040d6",
+        "name": "Ety Akhter",
+        "image": "https://i.ibb.co/c1dkzFB/natasha.jpg",
+        "prices": "500",
+        "meet": "https://meet.google.com/ewy-yjvp-zfu",
+        "offlineSlots": [
+            "08.00 AM - 08.30 AM",
+            "08.30 AM - 09.00 AM",
+            "09.00 AM - 9.30 AM",
+            "09.30 AM - 10.00 AM",
+            "10.00 AM - 10.30 AM",
+            "10.30 AM - 11.00 AM",
+            "11.00 AM - 11.30 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
+            "1.00 PM - 1.30 PM",
+            "1.30 PM - 2.00 PM",
+            "2.00 PM - 2.30 PM",
+            "2.30 PM - 3.00 PM",
+            "3.00 PM - 3.30 PM",
+            "3.30 PM - 4.00 PM",
+            "4.00 PM - 4.30 PM",
+            "4.30 PM - 5.00 PM"
+        ],
+        "email": "ety@gmail.com"
+    },
+    {
+        "_id": "662fe098acbb5a3558a040d3",
+        "name": "Rahmat Mia",
+        "image": "https://i.ibb.co/RStrbxf/doctor-1.jpg",
+        "prices": "500",
+        "meet": "https://meet.google.com/ewy-yjvp-zfu",
+        "offlineSlots": [
+            "08.00 AM - 08.30 AM",
+            "08.30 AM - 09.00 AM",
+            "09.00 AM - 9.30 AM",
+            "09.30 AM - 10.00 AM",
+            "10.00 AM - 10.30 AM",
+            "10.30 AM - 11.00 AM",
+            "11.00 AM - 11.30 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
             "1.00 PM - 1.30 PM",
             "1.30 PM - 2.00 PM",
             "2.00 PM - 2.30 PM",
@@ -26,86 +117,12 @@
         "email": "rahmat@gmail.com"
     },
     {
-        "name": "Jorina Khatun",
-        "image": "https://i.ibb.co/kmWTBS3/doctors-2.jpg",
-        "prices": "500",
-        "meet": "https://meet.google.com/ewy-yjvp-zfu",
-        "slots": [
-            "08.00 AM - 08.30 AM",
-            "08.30 AM - 09.00 AM",
-            "09.00 AM - 9.30 AM",
-            "09.30 AM - 10.00 AM",
-            "10.00 AM - 10.30 AM",
-            "10.30 AM - 11.00 AM",
-            "11.00 AM - 11.30 AM",
-            "11.30 AM - 12.00 AM",
-            "1.00 PM - 1.30 PM",
-            "1.30 PM - 2.00 PM",
-            "2.00 PM - 2.30 PM",
-            "2.30 PM - 3.00 PM",
-            "3.00 PM - 3.30 PM",
-            "3.30 PM - 4.00 PM",
-            "4.00 PM - 4.30 PM",
-            "4.30 PM - 5.00 PM"
-        ],
-        "email": "jorina@gmail.com"
-    },
-    {
-        "name": "Samiul Karim",
-        "image": "https://i.ibb.co/J5stRXD/jdkfd.jpg",
-        "prices": "500",
-        "meet": "https://meet.google.com/ewy-yjvp-zfu",
-        "slots": [
-            "08.00 AM - 08.30 AM",
-            "08.30 AM - 09.00 AM",
-            "09.00 AM - 9.30 AM",
-            "09.30 AM - 10.00 AM",
-            "10.00 AM - 10.30 AM",
-            "10.30 AM - 11.00 AM",
-            "11.00 AM - 11.30 AM",
-            "11.30 AM - 12.00 AM",
-            "1.00 PM - 1.30 PM",
-            "1.30 PM - 2.00 PM",
-            "2.00 PM - 2.30 PM",
-            "2.30 PM - 3.00 PM",
-            "3.00 PM - 3.30 PM",
-            "3.30 PM - 4.00 PM",
-            "4.00 PM - 4.30 PM",
-            "4.30 PM - 5.00 PM"
-        ],
-        "email": "samiul@gmail.com"
-    },
-    {
-        "name": "Ety Akhter",
-        "image": "https://i.ibb.co/c1dkzFB/natasha.jpg",
-        "prices": "500",
-        "meet": "https://meet.google.com/ewy-yjvp-zfu",
-        "slots": [
-            "08.00 AM - 08.30 AM",
-            "08.30 AM - 09.00 AM",
-            "09.00 AM - 9.30 AM",
-            "09.30 AM - 10.00 AM",
-            "10.00 AM - 10.30 AM",
-            "10.30 AM - 11.00 AM",
-            "11.00 AM - 11.30 AM",
-            "11.30 AM - 12.00 AM",
-            "1.00 PM - 1.30 PM",
-            "1.30 PM - 2.00 PM",
-            "2.00 PM - 2.30 PM",
-            "2.30 PM - 3.00 PM",
-            "3.00 PM - 3.30 PM",
-            "3.30 PM - 4.00 PM",
-            "4.00 PM - 4.30 PM",
-            "4.30 PM - 5.00 PM"
-        ],
-        "email": "ety@gmail.com"
-    },
-    {
+        "_id": "662fe098acbb5a3558a040d7",
         "name": "Muhtasib Hossain",
         "image": "https://i.ibb.co/GcNRtr1/dkfjdfld.jpg",
         "prices": "500",
         "meet": "https://meet.google.com/ewy-yjvp-zfu",
-        "slots": [
+        "offlineSlots": [
             "08.00 AM - 08.30 AM",
             "08.30 AM - 09.00 AM",
             "09.00 AM - 9.30 AM",
@@ -113,7 +130,10 @@
             "10.00 AM - 10.30 AM",
             "10.30 AM - 11.00 AM",
             "11.00 AM - 11.30 AM",
-            "11.30 AM - 12.00 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
             "1.00 PM - 1.30 PM",
             "1.30 PM - 2.00 PM",
             "2.00 PM - 2.30 PM",
@@ -126,11 +146,12 @@
         "email": "muhtasib@gmail.com"
     },
     {
-        "name": "Bayazid Hossain",
-        "image": "https://i.ibb.co/jLK0mBJ/doctors-3.jpg",
+        "_id": "662fe098acbb5a3558a040d5",
+        "name": "Samiul Karim",
+        "image": "https://i.ibb.co/J5stRXD/jdkfd.jpg",
         "prices": "500",
         "meet": "https://meet.google.com/ewy-yjvp-zfu",
-        "slots": [
+        "offlineSlots": [
             "08.00 AM - 08.30 AM",
             "08.30 AM - 09.00 AM",
             "09.00 AM - 9.30 AM",
@@ -138,7 +159,10 @@
             "10.00 AM - 10.30 AM",
             "10.30 AM - 11.00 AM",
             "11.00 AM - 11.30 AM",
-            "11.30 AM - 12.00 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
             "1.00 PM - 1.30 PM",
             "1.30 PM - 2.00 PM",
             "2.00 PM - 2.30 PM",
@@ -148,6 +172,35 @@
             "4.00 PM - 4.30 PM",
             "4.30 PM - 5.00 PM"
         ],
-        "email": "bayazidDcotor@gmail.com"
+        "email": "samiul@gmail.com"
+    },
+    {
+        "_id": "663dba1ce375d218e07f2091",
+        "name": "Md Rakib",
+        "email": "rakib@gmai.com",
+        "image": "https://i.ibb.co/3cq1ZpY/WIN-20240429-15-10-56-Pro.jpg",
+        "meet": "jfsdajljsdfljsldfjsldfjk",
+        "prices": "8000",
+        "offlineSlots": [
+            "08.00 AM - 08.30 AM",
+            "08.30 AM - 09.00 AM",
+            "09.00 AM - 9.30 AM",
+            "09.30 AM - 10.00 AM",
+            "10.00 AM - 10.30 AM",
+            "10.30 AM - 11.00 AM",
+            "11.00 AM - 11.30 AM",
+            "11.30 AM - 12.00 AM"
+            
+        ],
+        "onlineSlots": [
+            "1.00 PM - 1.30 PM",
+            "1.30 PM - 2.00 PM",
+            "2.00 PM - 2.30 PM",
+            "2.30 PM - 3.00 PM",
+            "3.00 PM - 3.30 PM",
+            "3.30 PM - 4.00 PM",
+            "4.00 PM - 4.30 PM",
+            "4.30 PM - 5.00 PM"
+        ]
     }
 ]
