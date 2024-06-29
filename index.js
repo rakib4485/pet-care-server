@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = `mongodb+srv://petCare:XUy0G3u21omJKG5h@cluster0.efsdsdy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.efsdsdy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -103,6 +103,33 @@ async function run() {
       orders.forEach(order => {
         order.products.map(product => {
           if (JSON.stringify(product.sellerEmail) === JSON.stringify(email)) {
+            const order1 = {
+              product,
+              name: order.name,
+              price: order.price,
+              city: order.city,
+              street: order.street,
+              paymentType: order.paymentType,
+              customerEmail: order.customerEmail,
+              phone: order.phone,
+              orderDate: order.orderDate,
+              orderId: order._id
+            }
+            myOrder = [...myOrder, order1]
+          }
+        })
+      })
+      res.send(myOrder)
+    })
+
+    app.get('/my-product-order-notification', async (req, res) => {
+      await client.connect();
+      const email = req.query.email;
+      const orders = await productOrderCollection.find({}).toArray();
+      let myOrder = [];
+      orders.forEach(order => {
+        order.products.map(product => {
+          if (JSON.stringify(product.sellerEmail) === JSON.stringify(email) && !product.status) {
             const order1 = {
               product,
               name: order.name,
@@ -729,8 +756,7 @@ async function run() {
       res.send(result);
     });
 
-  } 
-  finally {
+  } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
   }
