@@ -122,32 +122,32 @@ async function run() {
       res.send(myOrder)
     })
 
-    app.get('/my-product-order-notification', async (req, res) => {
-      await client.connect();
-      const email = req.query.email;
-      const orders = await productOrderCollection.find({}).toArray();
-      let myOrder = [];
-      orders.forEach(order => {
-        order.products.map(product => {
-          if (JSON.stringify(product.sellerEmail) === JSON.stringify(email) && !product.status) {
-            const order1 = {
-              product,
-              name: order.name,
-              price: order.price,
-              city: order.city,
-              street: order.street,
-              paymentType: order.paymentType,
-              customerEmail: order.customerEmail,
-              phone: order.phone,
-              orderDate: order.orderDate,
-              orderId: order._id
-            }
-            myOrder = [...myOrder, order1]
-          }
-        })
-      })
-      res.send(myOrder)
-    })
+    // app.get('/my-product-order-notification', async (req, res) => {
+    //   await client.connect();
+    //   const email = req.query.email;
+    //   const orders = await productOrderCollection.find({}).toArray();
+    //   let myOrder = [];
+    //   orders.forEach(order => {
+    //     order.products.map(product => {
+    //       if (JSON.stringify(product.sellerEmail) === JSON.stringify(email) && !product.status) {
+    //         const order1 = {
+    //           product,
+    //           name: order.name,
+    //           price: order.price,
+    //           city: order.city,
+    //           street: order.street,
+    //           paymentType: order.paymentType,
+    //           customerEmail: order.customerEmail,
+    //           phone: order.phone,
+    //           orderDate: order.orderDate,
+    //           orderId: order._id
+    //         }
+    //         myOrder = [...myOrder, order1]
+    //       }
+    //     })
+    //   })
+    //   res.send(myOrder)
+    // })
 
     //appointment Related code
 
@@ -248,7 +248,7 @@ async function run() {
         total_amount: booking.prices,
         currency: 'BDT',
         tran_id: tranId, // use unique tran_id for each api call
-        success_url: `https://pet-care-server-lake.vercel.app/payment/success/${tranId}`,
+        success_url: `https://pet-care-server-gamma.vercel.app/payment/success/${tranId}`,
         fail_url: 'http://localhost:3030/fail',
         cancel_url: 'http://localhost:3030/cancel',
         ipn_url: 'http://localhost:3030/ipn',
@@ -394,7 +394,7 @@ async function run() {
           total_amount: order.price,
           currency: 'BDT',
           tran_id: tranId, // use unique tran_id for each api call
-          success_url: `https://pet-care-server-lake.vercel.app/payment/success/${tranId}`,
+          success_url: `https://pet-care-server-gamma.vercel.app/payment/success/${tranId}`,
           fail_url: 'http://localhost:3030/fail',
           cancel_url: 'http://localhost:3030/cancel',
           ipn_url: 'http://localhost:3030/ipn',
