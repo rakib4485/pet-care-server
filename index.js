@@ -722,39 +722,39 @@ async function run() {
     })
 
     // add temporary change in database
-    app.get('/addIsRent', async (req, res) => {
-      await client.connect()
-      const filter = { role: 'doctor' };
-      const option = { upsert: true };
-      const updatedDoc = {
-        $set: {
-          doctorDetails: {
-            about: "Dr. Sarah Johnson, M.D., is a highly respected internal medicine physician with over 15 years of experience at City General Hospital in New York, NY. She earned her medical degree from Harvard Medical School and completed her residency in Internal Medicine at Massachusetts General Hospital, where she also served as Chief Resident. Dr. Johnson holds a B.S. in Biology from Stanford University and currently serves as an Assistant Professor of Medicine at New York University School of Medicine.\n\nSpecializing in the management of chronic conditions such as diabetes, hypertension, and heart disease, Dr. Johnson has a particular interest in preventive medicine and wellness. Her approach to patient care is characterized by her compassionate demeanor and thorough diagnostic skills, emphasizing education and communication to empower her patients in their healthcare decisions. Fluent in both English and Spanish, she is dedicated to building strong, trusting relationships with a diverse patient population.\n\nDr. Johnson is actively involved in clinical research aimed at improving outcomes for patients with chronic diseases and has published numerous articles in peer-reviewed medical journals. She is a member of the American College of Physicians, the American Medical Association, and the New York State Medical Society. Outside of her professional life, she enjoys running, cooking, and exploring New York City's rich cultural landscape with her family. Patients frequently commend Dr. Johnson for her attentiveness, care, and the confidence she instills in them regarding their health. For more information or to schedule an appointment, Dr. Johnson can be reached at (123) 456-7890 or via email at sjohnson@citygeneralhospital.com.",
-            education: [
-              {
-                institution: "Harvard Medical School, Boston, MA",
-                degree: "Medical Degree",
-                year: "2000"
-              },
-              {
-                institution: "Internal Medicine, Massachusetts General Hospital, Boston, MA",
-                degree: "Residency",
-                year: "2002"
-              },
-              {
-                institution: "Stanford University, Stanford, CA",
-                degree: "B.S. in Biology",
-                year: "1996"
-              }
-            ],
-            phone: "6565656565656",
-            sEmail: "hero@gmail.com"
-          }
-        }
-      }
-      const result = await usersCollection.updateMany(filter, updatedDoc, option);
-      res.send(result);
-    });
+    // app.get('/addIsRent', async (req, res) => {
+    //   await client.connect()
+    //   const filter = { role: 'doctor' };
+    //   const option = { upsert: true };
+    //   const updatedDoc = {
+    //     $set: {
+    //       doctorDetails: {
+    //         about: "Dr. Sarah Johnson, M.D., is a highly respected internal medicine physician with over 15 years of experience at City General Hospital in New York, NY. She earned her medical degree from Harvard Medical School and completed her residency in Internal Medicine at Massachusetts General Hospital, where she also served as Chief Resident. Dr. Johnson holds a B.S. in Biology from Stanford University and currently serves as an Assistant Professor of Medicine at New York University School of Medicine.\n\nSpecializing in the management of chronic conditions such as diabetes, hypertension, and heart disease, Dr. Johnson has a particular interest in preventive medicine and wellness. Her approach to patient care is characterized by her compassionate demeanor and thorough diagnostic skills, emphasizing education and communication to empower her patients in their healthcare decisions. Fluent in both English and Spanish, she is dedicated to building strong, trusting relationships with a diverse patient population.\n\nDr. Johnson is actively involved in clinical research aimed at improving outcomes for patients with chronic diseases and has published numerous articles in peer-reviewed medical journals. She is a member of the American College of Physicians, the American Medical Association, and the New York State Medical Society. Outside of her professional life, she enjoys running, cooking, and exploring New York City's rich cultural landscape with her family. Patients frequently commend Dr. Johnson for her attentiveness, care, and the confidence she instills in them regarding their health. For more information or to schedule an appointment, Dr. Johnson can be reached at (123) 456-7890 or via email at sjohnson@citygeneralhospital.com.",
+    //         education: [
+    //           {
+    //             institution: "Harvard Medical School, Boston, MA",
+    //             degree: "Medical Degree",
+    //             year: "2000"
+    //           },
+    //           {
+    //             institution: "Internal Medicine, Massachusetts General Hospital, Boston, MA",
+    //             degree: "Residency",
+    //             year: "2002"
+    //           },
+    //           {
+    //             institution: "Stanford University, Stanford, CA",
+    //             degree: "B.S. in Biology",
+    //             year: "1996"
+    //           }
+    //         ],
+    //         phone: "6565656565656",
+    //         sEmail: "hero@gmail.com"
+    //       }
+    //     }
+    //   }
+    //   const result = await usersCollection.updateMany(filter, updatedDoc, option);
+    //   res.send(result);
+    // });
 
   } finally {
     // Ensures that the client will close when you finish/error
