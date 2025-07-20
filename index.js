@@ -547,6 +547,38 @@ async function run() {
       res.send(result)
     })
 
+    app.put('/delever-order/:id', async (req, res) => {
+      await client.connect();
+      const id = req.params.id;
+      const productId = req.query.productId;
+      console.log(productId)
+      const query = { _id: new ObjectId(id) }
+      const result1 = await productOrderCollection.findOne(query);
+      const products = await result1.products;
+
+      let finalProducts = []
+      products.forEach(product => {
+        if (JSON.stringify(product._id) === JSON.stringify(productId)) {
+          let confrim = {
+            status: 'delevered'
+          }
+          Object.assign(product, confrim)
+          console.log(product)
+        }
+      })
+      console.log(products)
+      const result = await productOrderCollection.updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            products: products
+          }
+        }
+      );
+      console.log(result)
+      res.send(result)
+    })
+
     app.put('/delete-order/:id', async (req, res) => {
       await client.connect();
       const id = req.params.id;
@@ -787,6 +819,13 @@ async function run() {
     //   const result = await usersCollection.updateMany(filter, updatedDoc, option);
     //   res.send(result);
     // });
+
+    app.get('/allOrders', async (req, res) => {
+      await client.connect();
+
+      const orders = await productOrderCollection.find({}).toArray();
+      res.send(orders)
+    })
 
   } finally {
     // Ensures that the client will close when you finish/error
